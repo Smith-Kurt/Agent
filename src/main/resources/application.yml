@@ -1,26 +1,51 @@
 server:
     port: 8080
+
+alipay:
+    appId: 9021000143680004
+    privateKey: MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDPv1wag9h4NJCvaLywv2jAbgVwMTzhAu2uHPLyVafnydoWZe4+QxIDcRCrD9uxKsk9rvdwjB51mc8yxwTrRkDGHf2LZhvuoZn7+MnAZGJMV8H7ulUT3fR1mbvPMBIn58nju+W1pyXWaD3knX4xeb+p8mtR5pfnJplDC540ok1greWGLBvdRrJkO7kGx4cZJsui+i+qp8mL2xYEqtbMcdULuKbp1jES9VEkjP33wDttDhFoXVvAFnpklwChOQ0NHHJPFc23pU96e4y/CJtmI3YnwGG2Cb6knsfmnCVBJabfaxwCfXnNB+qXBRLjbXuLF/wNP2Do9Xh7ZVWZnCuM70M7AgMBAAECggEBAL4IsMq8Yk6K3vLlnv0bCkpEGgtnruWxVROY/Y85VU8M8MbeVNF1bsvhKDsiVXc5yT34h/XW5qHyoXs0XEaPS/8uPdi+/bwK7R11la+848Ir4JFRADQdK1pL12WN9n20ZJRCM703+b+oOT2f52iAkxd1XkBb7AYQ489VmFFTSe6tXcFHL6PlJ4DN0/xaMpPKdPxOI2TY6FAdYrrw27hPoLStd0PTeQh4dGqD9HThshb4F3e7t3HdGt3XBrn2yie0BRU+9rWjV62C11b69zTJ0rNpTWFS3AQcnoUmj0QdD6aEAmrbqkL+USLQjJVQ4R5HYkyRZxhx93plV9trk38/tvkCgYEA6SHqlemlB9+N+YEk/UbwwH0+lRKKg1S7To6LEvH+zJwdFU2lPEmMzA0k6pDEeYJZyHGq22fXOK+5rxE9ma42jHvNVjJYx5xc7cdOYEZ7hZ3inFMyquwfDgxUvEpDz/UbBqGXiByDba74iBYIHZUj1jts1whUaMeF/LFQPm8DeXUCgYEA5CADOWgBqjgzV0q2a9Ft84MnUJpTOGI9A6Zc9KC/Y9ppTaoISm+zOH2w/cCotGGjx0i3UC6MsOweTBrjdJKj9gV8BtED7hljnM2sGqC0SYa4FREw6Ok93M0+45VEHfu9yadmhJfsI+icGFVVqLYst9jNJYn4xO/NdCPdiQAig+8CgYAOpEara6UlvXCZPvcnwRDVxgfsLOHuJaAt6t3pLrGmABgDgoDiLGxfVGQBJ15vkzQ4Vos4hGkL8l1jFV4dDMf4Qr4+r6LLxpI/jMjrWwHe/m+BCeigu3un0jZwLOndYbN00ylFLyVB+j85rMiNsxQxHEJVrvw+KGnN2QUFJsu9EQKBgQCuCTYsf4p1oDaa6+bLzpTBaFeACJxgsaG2vR7Bijk5JpGbrJJyp1DlUg7LKEYMh0j5aiJfy4OOHjTm/sR0VMM9l+WNFbyX00rJf6dDEUM5rMuXVuwnZHnLj9HgsimrbjjWNR3jHjwLERS1A7U75u+qun2Xm/Dr3b6yUgJa2H18hQKBgQDAfJ2aaP4jODuS7XFmPolUOp4jWPApeFRno3rl4g2CRafIHrdDVGdDlxmKCEEqpmb1TC8qYdKC8f1PFaWaeq9HPkrLL5+kNY+JhNTmsJm5J6zG5KhlaGdQ1x9kdE4owMBJvRsNE8SXzGIsMklfe/RIWGxyAYhduZfX3XeFBHxqfA==
+    publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArcf/d8LGRY0q2U/VIPHlBkABqRAerP/JtRwghF9CgW62m9UK+vzQyEOY4v6Es1JnAWTCvR0Ndu+NClwwo1ZDX5bbmAy65iteCbjarkaaRkrg3toBG3DOrBfJZnzzFF0emoJlCYMEmGXn0Mqn8wQ88XZGI8IptAv6R/3lCBGDGa3qimciUjCsqhGX00cUo6ofpD87ZsX/G23YBnl1IMWcWknd2srTujSB8YAlYjhJSNjP8Os7gzWxLKH9IJBSjLWlz3xGAWLcSKBqKQPhc6uPOsbAIox6RIa9vM2DRsvrxfd/EMFUfmlESgGNO770ylNMB++F9lZtAEDSYMvSY7OUFQIDAQAB
+    gatewayUrl: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+    notifyUrl: 
+    returnUrl: 
+
 spring:
     application:
         name: agent
     datasource:
-        url: jdbc:mysql://localhost:3306/agent-2026/11/11
-        username: root
-        password: 
-        driver-class-name: com.mysql.cj.jdbc.Driver
+        dynamic:
+            primary: master
+            strict: false
+            datasource:
+                master:
+                    url: jdbc:mysql://localhost:3307/life
+                    username: root
+                    password: 123456
+                    driver-class-name: com.mysql.cj.jdbc.Driver
+                slave:
+                    url: jdbc:mysql://localhost:3308/life
+                    username: root
+                    password: 123456
+                    driver-class-name: com.mysql.cj.jdbc.Driver
     data:
         redis:
-            host: localhost
-            port: 6379
-            password: 
-            database: 0
-            timeout: 5000ms
+            cluster:
+                nodes:
+                - 127.0.0.1:7001
+                - 127.0.0.1:7002
+                - 127.0.0.1:7003
+                - 127.0.0.1:7004
+                - 127.0.0.1:7005
+                - 127.0.0.1:7006
+                max-redirects: 3   # 节点跳转重试次数（建议设置）
+            password:            # 如果没设置密码，可以留空或删除这一行
+            timeout: 2000        # 连接超时时间，毫秒
             lettuce:
                 pool:
                     max-active: 8
-                    max-wait: -1ms
                     max-idle: 8
-                    min-idle: 0
+                    min-idle: 1
+                    max-wait: -1
 mybatis-plus:
     configuration:
         map-underscore-to-camel-case: true
